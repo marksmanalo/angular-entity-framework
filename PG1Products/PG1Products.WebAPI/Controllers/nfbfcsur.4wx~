@@ -1,0 +1,73 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using PG1Products.BLL.Models;
+using PG1Products.BLL.Repositories;
+using PG1Products.DAL;
+
+namespace PG1Products.WebAPI.Controllers
+{
+    // Enable CORS: first argument is the valid origins (comma separated) only
+    // allow access to our angular application
+    // second argument allows all headers
+    // third argument allows all methods to be used (GET, PUT, ...)
+    [EnableCorsAttribute("http://localhost:58336", "*", "*")]
+    public class ProductsController : ApiController
+    {
+        private readonly IProductRepository _repository;
+        
+
+        public ProductsController()
+        {
+            _repository = new ProductRepository();
+        }
+
+        // GET api/products
+        public ProductModel[] Get()
+        {
+            var temp = _repository.GetAll();
+
+            return new[]
+            {
+                new ProductModel
+                {
+                    Id = 1,
+                    Name = "afeafefe",
+                    Price = 12.34M,
+                    Description = "some description"
+                },
+                new ProductModel
+                {
+                    Id = 2,
+                    Name = "reqrere",
+                    Price = 134.56M,
+                    Description = "feafefefef"
+                },
+                new ProductModel
+                {
+                    Id = 1,
+                    Name = "ljfeifjeoif",
+                    Price = 66.66M,
+                    Description = "fke;lfjiejf"
+                }
+            };
+        }
+
+        // GET api/products/5
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST api/products
+        public void Post([FromBody] string value)
+        {
+        }
+
+        // DELETE api/products/5
+        public void Delete(int id)
+        {
+        }
+    }
+}
